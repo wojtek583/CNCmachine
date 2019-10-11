@@ -6,7 +6,14 @@
         xmlns:local="clr-namespace:MaszynkaCNC_WPF"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
 
-    </Grid>
+    <Canvas  Name="paintSurface" MouseDown="Canvas_MouseDown_1" MouseMove="Canvas_MouseMove_1" >
+        <Button Click="Button_Click" >
+            CLEAR
+        </Button>
+        <Canvas.Background>
+            <SolidColorBrush Color="White" Opacity="0"/>
+        </Canvas.Background>
+    </Canvas>
+
 </Window>
