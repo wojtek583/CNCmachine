@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace MaszynkaCNC_WPF
 {
@@ -50,11 +51,33 @@ namespace MaszynkaCNC_WPF
                 line.Y1 = currentPoint.Y;
                 line.X2 = e.GetPosition(this).X;
                 line.Y2 = e.GetPosition(this).Y;
-
                 pozycjax.Content= currentPoint.X;
                 pozycjaY.Content = currentPoint.Y;
 
                 currentPoint = e.GetPosition(this);
+               
+                if (File.Exists(@"C:\Users\wojte\Desktop\CNC.txt"))
+                {
+
+
+                    int i = 0;
+                    
+                    int pozX = Convert.ToInt32(currentPoint.X);
+                    int pozy = Convert.ToInt32(currentPoint.Y);
+                    string[] myString = new string[800];
+                    string[] myString2 = new string[800];
+                    myString[i] = pozX.ToString();
+                    myString2[i] = pozy.ToString();
+
+                    File.WriteAllText(@"C:\Users\wojte\Desktop\CNC.txt", "\t"+ myString[i] +" "+ myString2[i]+"\n" );
+
+                    i++;
+
+                }
+
+              
+
+                
 
                 paintSurface.Children.Add(line);
             }
