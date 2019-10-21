@@ -8,9 +8,12 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Canvas  Name="paintSurface" MouseDown="Canvas_MouseDown_1" MouseMove="Canvas_MouseMove_1" >
-        <Button Click="Button_Click" >
+        <Button Click="Button_Click" Canvas.Left="10" Canvas.Top="10" RenderTransformOrigin="1.513,0.414" >
             CLEAR
         </Button>
+        <Label x:Name="pozycjax" Content="000" Canvas.Left="10" Canvas.Top="51" Width="54"/>
+        <Label x:Name="pozycjaY" Content="000" Canvas.Left="10" Canvas.Top="82" Width="54"/>
+       
         <Canvas.Background>
             <SolidColorBrush Color="White" Opacity="0"/>
         </Canvas.Background>
