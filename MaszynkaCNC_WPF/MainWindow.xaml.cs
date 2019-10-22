@@ -55,14 +55,14 @@ namespace MaszynkaCNC_WPF
                 pozycjaY.Content = currentPoint.Y;
 
                 currentPoint = e.GetPosition(this);
-               
+
                 if (File.Exists(@"C:\Users\wojte\Desktop\CNC.txt"))
                 {
 
 
                     int i = 0;
-                    
-                    int pozX = Convert.ToInt32(currentPoint.X);
+
+                   int pozX = Convert.ToInt32(currentPoint.X);
                     int pozy = Convert.ToInt32(currentPoint.Y);
                     string[] myString = new string[800];
                     string[] myString2 = new string[800];
@@ -73,13 +73,27 @@ namespace MaszynkaCNC_WPF
 
                     i++;
 
-                }
-
-              
+               }
 
                 
+                
 
-                paintSurface.Children.Add(line);
+            //chuja nie działa -_-
+
+                    //paintSurface.Children.Add(line);
+                    //using (StreamWriter sw = new StreamWriter(@"C:\Users\wojte\Desktop\CNC.txt"))
+                    //    {
+                    //       do
+                    //       {
+                    //             sw.WriteLine(myString[pozX] + myString2[pozy]);
+
+                    //       } while (e.LeftButton == MouseButtonState.Pressed);
+                            
+                    //    }
+
+
+
+
             }
             
         }
