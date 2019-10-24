@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,16 +21,27 @@ namespace MaszynkaCNC_WPF
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// 
+    class Punkt
+    {
+        public int Xpozycja;
+        public int Ypozycja;
+    }
+
+
+
     public partial class MainWindow : Window
     {
 
         Point currentPoint = new Point();
+        List<Punkt> punkty;
 
         public MainWindow()
         {
             InitializeComponent();
+            punkty = new List<Punkt> { new Punkt { Xpozycja = 0, Ypozycja = 0} };
         }
-
+      
         private void Canvas_MouseDown_1(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             if (e.ButtonState == MouseButtonState.Pressed)
@@ -56,41 +69,15 @@ namespace MaszynkaCNC_WPF
 
                 currentPoint = e.GetPosition(this);
 
-                if (File.Exists(@"C:\Users\wojte\Desktop\CNC.txt"))
+                    paintSurface.Children.Add(line);
+                if (punkty.Last().Xpozycja != currentPoint.X && punkty.Last().Ypozycja != currentPoint.Y)
                 {
 
+                punkty.Add(new Punkt { Xpozycja = (int)currentPoint.X,  Ypozycja = (int)currentPoint.Y });
 
-                    int i = 0;
-
-                   int pozX = Convert.ToInt32(currentPoint.X);
-                    int pozy = Convert.ToInt32(currentPoint.Y);
-                    string[] myString = new string[800];
-                    string[] myString2 = new string[800];
-                    myString[i] = pozX.ToString();
-                    myString2[i] = pozy.ToString();
-
-                    File.WriteAllText(@"C:\Users\wojte\Desktop\CNC.txt", "\t"+ myString[i] +" "+ myString2[i]+"\n" );
-
-                    i++;
-
-               }
+                }
 
                 
-                
-
-            //chuja nie działa -_-
-
-                    //paintSurface.Children.Add(line);
-                    //using (StreamWriter sw = new StreamWriter(@"C:\Users\wojte\Desktop\CNC.txt"))
-                    //    {
-                    //       do
-                    //       {
-                    //             sw.WriteLine(myString[pozX] + myString2[pozy]);
-
-                    //       } while (e.LeftButton == MouseButtonState.Pressed);
-                            
-                    //    }
-
 
 
 
@@ -102,6 +89,36 @@ namespace MaszynkaCNC_WPF
         {
 
             paintSurface.Children.Clear();
+            
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            
+
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(@"C:\Users\wojte\Desktop\CNC.txt"))
+            {
+                foreach (var punkt in punkty)
+                {
+                    
+                        file.WriteLine(punkt.Xpozycja + " " + punkt.Ypozycja + "\t");
+                }
+            }
+            //if (File.Exists(@"C:\Users\wojte\Desktop\CNC.txt"))
+            //{
+            //    foreach (var punkt in punkty)
+            //    {
+            //        File.(@"C:\Users\wojte\Desktop\CNC.txt", punkt.Xpozycja + " " + punkt.Ypozycja + "\t");
+
+            //    }
+
+            //}
+
+
+           
+            MessageBox.Show("Zapisano plik");
+            this.Close();
             
         }
     }
